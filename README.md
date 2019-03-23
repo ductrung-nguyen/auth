@@ -21,12 +21,12 @@ package main
 
 import (
   "github.com/qor/auth"
-  "github.com/qor/auth/auth_identity"
-  "github.com/qor/auth/providers/github"
-  "github.com/qor/auth/providers/google"
-  "github.com/qor/auth/providers/password"
-  "github.com/qor/auth/providers/facebook"
-  "github.com/qor/auth/providers/twitter"
+  "github.com/ductrung-nguyen/auth/auth_identity"
+  "github.com/ductrung-nguyen/auth/providers/github"
+  "github.com/ductrung-nguyen/auth/providers/google"
+  "github.com/ductrung-nguyen/auth/providers/password"
+  "github.com/ductrung-nguyen/auth/providers/facebook"
+  "github.com/ductrung-nguyen/auth/providers/twitter"
   "github.com/qor/session/manager"
 
   _ "github.com/mattn/go-sqlite3"
@@ -106,7 +106,7 @@ If this is not required for you, you could just set those two models to same one
 
 Different provider usually use different information to login, like provider `password` use username/password, `github` use github user ID, so for each provider, it will save those information into its own record.
 
-You are not necessary to set `AuthIdentityModel`, Auth has a default [definition of AuthIdentityModel](http://godoc.org/github.com/qor/auth/auth_identity#AuthIdentity), in case of you want to change it, make sure you have [auth_identity.Basic](http://godoc.org/github.com/qor/auth/auth_identity#Basic) embedded, as `Auth` assume you have same data structure in your database, so it could query/create records with SQL.
+You are not necessary to set `AuthIdentityModel`, Auth has a default [definition of AuthIdentityModel](http://godoc.org/github.com/ductrung-nguyen/auth/auth_identity#AuthIdentity), in case of you want to change it, make sure you have [auth_identity.Basic](http://godoc.org/github.com/ductrung-nguyen/auth/auth_identity#Basic) embedded, as `Auth` assume you have same data structure in your database, so it could query/create records with SQL.
 
 * `UserModel`
 
@@ -193,4 +193,4 @@ Check Auth Theme's [document](https://github.com/qor/auth_themes) for How To use
 
 `Authentication` is the process of verifying who you are, `Authorization` is the process of verifying that you have access to something.
 
-Auth package not only provides `Authentication`, but also `Authorization`, please checkout [authority](https://github.com/qor/auth/tree/master/authority) for more details
+Auth package not only provides `Authentication`, but also `Authorization`, please checkout [authority](https://github.com/ductrung-nguyen/auth/tree/master/authority) for more details

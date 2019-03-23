@@ -5,9 +5,9 @@ import (
 	"strings"
 
 	jwt "github.com/dgrijalva/jwt-go"
+	"github.com/ductrung-nguyen/auth/auth_identity"
+	"github.com/ductrung-nguyen/auth/claims"
 	"github.com/jinzhu/gorm"
-	"github.com/qor/auth/auth_identity"
-	"github.com/qor/auth/claims"
 	"github.com/qor/mailer"
 	"github.com/qor/mailer/logger"
 	"github.com/qor/redirect_back"
@@ -25,9 +25,9 @@ type Auth struct {
 
 // Config auth config
 type Config struct {
-	// Default Database, which will be used in Auth when do CRUD, you can change a request's DB isntance by setting request Context's value, refer https://github.com/qor/auth/blob/master/utils.go#L32
+	// Default Database, which will be used in Auth when do CRUD, you can change a request's DB isntance by setting request Context's value, refer https://github.com/ductrung-nguyen/auth/blob/master/utils.go#L32
 	DB *gorm.DB
-	// AuthIdentityModel a model used to save auth info, like email/password, OAuth token, linked user's ID, https://github.com/qor/auth/blob/master/auth_identity/auth_identity.go is the default implemention
+	// AuthIdentityModel a model used to save auth info, like email/password, OAuth token, linked user's ID, https://github.com/ductrung-nguyen/auth/blob/master/auth_identity/auth_identity.go is the default implemention
 	AuthIdentityModel interface{}
 	// UserModel should be point of user struct's instance, it could be nil, then Auth will assume there is no user linked to auth info, and will return current auth info when get current user
 	UserModel interface{}
@@ -116,7 +116,7 @@ func New(config *Config) *Auth {
 		config.Render.RegisterViewPath(viewPath)
 	}
 
-	config.Render.RegisterViewPath("github.com/qor/auth/views")
+	config.Render.RegisterViewPath("github.com/ductrung-nguyen/auth/views")
 
 	auth := &Auth{Config: config}
 

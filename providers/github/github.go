@@ -8,8 +8,8 @@ import (
 
 	"github.com/google/go-github/github"
 	"github.com/qor/auth"
-	"github.com/qor/auth/auth_identity"
-	"github.com/qor/auth/claims"
+	"github.com/ductrung-nguyen/auth/auth_identity"
+	"github.com/ductrung-nguyen/auth/claims"
 	"github.com/qor/qor/utils"
 	"golang.org/x/oauth2"
 )
