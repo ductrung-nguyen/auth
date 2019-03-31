@@ -14,7 +14,7 @@ Authority could use with [Auth](http://github.com/qor/auth) to get current user,
 
 ```go
 import (
-  "github.com/qor/auth"
+  "github.com/ductrung-nguyen/auth"
   "github.com/ductrung-nguyen/auth/authority"
   "github.com/qor/roles"
 )

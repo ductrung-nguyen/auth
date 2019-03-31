@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/qor/auth"
+	"github.com/ductrung-nguyen/auth"
 	"github.com/ductrung-nguyen/auth/auth_identity"
 	"github.com/ductrung-nguyen/auth/claims"
 	"github.com/ductrung-nguyen/auth/providers/password/encryptor"

@@ -20,7 +20,7 @@ Here is an example:
 package main
 
 import (
-  "github.com/qor/auth"
+  "github.com/ductrung-nguyen/auth"
   "github.com/ductrung-nguyen/auth/auth_identity"
   "github.com/ductrung-nguyen/auth/providers/github"
   "github.com/ductrung-nguyen/auth/providers/google"

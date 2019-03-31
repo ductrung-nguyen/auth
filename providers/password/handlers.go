@@ -7,6 +7,7 @@ import (
 	"github.com/ductrung-nguyen/auth"
 	"github.com/ductrung-nguyen/auth/auth_identity"
 	"github.com/ductrung-nguyen/auth/claims"
+	"github.com/go-sql-driver/mysql"
 	"github.com/qor/qor/utils"
 	"github.com/qor/session"
 )
@@ -14,7 +15,8 @@ import (
 // DefaultAuthorizeHandler default authorize handler
 var DefaultAuthorizeHandler = func(context *auth.Context) (*claims.Claims, error) {
 	var (
-		authInfo    auth_identity.Basic
+		//authInfo    auth_identity.Basic
+		authInfo    auth_identity.AuthIdentity
 		req         = context.Request
 		tx          = context.Auth.GetDB(req)
 		provider, _ = context.Provider.(*Provider)
@@ -48,7 +50,8 @@ var DefaultRegisterHandler = func(context *auth.Context) (*claims.Claims, error)
 		err         error
 		currentUser interface{}
 		schema      auth.Schema
-		authInfo    auth_identity.Basic
+		//authInfo    auth_identity.Basic
+		authInfo    auth_identity.AuthIdentity
 		req         = context.Request
 		tx          = context.Auth.GetDB(req)
 		provider, _ = context.Provider.(*Provider)
@@ -74,10 +77,15 @@ var DefaultRegisterHandler = func(context *auth.Context) (*claims.Claims, error)
 		schema.Provider = authInfo.Provider
 		schema.UID = authInfo.UID
 		schema.Email = authInfo.UID
+		schema.Username = schema.UID
 		schema.RawInfo = req
 
 		currentUser, authInfo.UserID, err = context.Auth.UserStorer.Save(&schema, context)
 		if err != nil {
+			if sqlError, ok := err.(*mysql.MySQLError); ok && sqlError.Number == 1062 {
+				// duplicate entry in some columns
+				return nil, auth.ErrAccountExisted
+			}
 			return nil, err
 		}
 

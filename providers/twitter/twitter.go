@@ -9,7 +9,7 @@ import (
 	"reflect"
 
 	"github.com/mrjones/oauth"
-	"github.com/qor/auth"
+	"github.com/ductrung-nguyen/auth"
 	"github.com/ductrung-nguyen/auth/auth_identity"
 	"github.com/ductrung-nguyen/auth/claims"
 	"github.com/qor/qor/utils"

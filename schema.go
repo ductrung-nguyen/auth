@@ -2,9 +2,9 @@ package auth
 
 // Schema auth schema
 type Schema struct {
-	Provider string
-	UID      string
-
+	Provider  string
+	UID       string
+	Username  string
 	Name      string
 	Email     string
 	FirstName string
