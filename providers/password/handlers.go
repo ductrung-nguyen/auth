@@ -1,10 +1,8 @@
 package password
 
 import (
-	"fmt"
 	"reflect"
 	"strings"
-	"time"
 
 	"github.com/ductrung-nguyen/auth"
 	"github.com/ductrung-nguyen/auth/auth_identity"
@@ -91,13 +89,6 @@ var DefaultRegisterHandler = func(context *auth.Context) (*claims.Claims, error)
 
 		} else if loginType == "phone" {
 			schema.Phone = authInfo.UID
-		}
-		if schema.Phone == "" {
-			schema.Phone = fmt.Sprintf("?phone%d", time.Now().UTC().UnixNano())
-		}
-
-		if schema.Email == "" {
-			schema.Email = fmt.Sprintf("?email%d@singloop.com", time.Now().UTC().UnixNano())
 		}
 
 		schema.Username = schema.UID
