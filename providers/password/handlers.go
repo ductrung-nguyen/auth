@@ -1,8 +1,10 @@
 package password
 
 import (
+	"fmt"
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/ductrung-nguyen/auth"
 	"github.com/ductrung-nguyen/auth/auth_identity"
@@ -66,6 +68,14 @@ var DefaultRegisterHandler = func(context *auth.Context) (*claims.Claims, error)
 		return nil, auth.ErrInvalidPassword
 	}
 
+	var loginType string
+
+	if req.Form.Get("type") == "" {
+		loginType = "email"
+	} else {
+		loginType = strings.TrimSpace(req.Form.Get("type"))
+	}
+
 	authInfo.Provider = provider.GetName()
 	authInfo.UID = strings.TrimSpace(req.Form.Get("login"))
 
@@ -76,7 +86,20 @@ var DefaultRegisterHandler = func(context *auth.Context) (*claims.Claims, error)
 	if authInfo.EncryptedPassword, err = provider.Encryptor.Digest(strings.TrimSpace(req.Form.Get("password"))); err == nil {
 		schema.Provider = authInfo.Provider
 		schema.UID = authInfo.UID
-		schema.Email = authInfo.UID
+		if loginType == "email" {
+			schema.Email = authInfo.UID
+
+		} else if loginType == "phone" {
+			schema.Phone = authInfo.UID
+		}
+		if schema.Phone == "" {
+			schema.Phone = fmt.Sprintf("?phone%d", time.Now().UTC().UnixNano())
+		}
+
+		if schema.Email == "" {
+			schema.Email = fmt.Sprintf("?email%d@singloop.com", time.Now().UTC().UnixNano())
+		}
+
 		schema.Username = schema.UID
 		schema.RawInfo = req
 
