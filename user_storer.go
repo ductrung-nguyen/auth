@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"reflect"
 
-	"github.com/jinzhu/copier"
 	"github.com/ductrung-nguyen/auth/auth_identity"
 	"github.com/ductrung-nguyen/auth/claims"
+	"github.com/jinzhu/copier"
 	"github.com/qor/qor/utils"
 )
 
@@ -36,11 +36,14 @@ func (UserStorer) Get(Claims *claims.Claims, context *Context) (user interface{}
 
 	var (
 		authIdentity = reflect.New(utils.ModelType(context.Auth.Config.AuthIdentityModel)).Interface()
-		authInfo     = auth_identity.Basic{
-			Provider: Claims.Provider,
-			UID:      Claims.Id,
-		}
+		// authInfo     = auth_identity.Basic{
+		// 	Provider: Claims.Provider,
+		// 	UID:      Claims.Id,
+		// }
+		authInfo = auth_identity.AuthIdentity{}
 	)
+	authInfo.Provider = Claims.Provider
+	authInfo.UID = Claims.Id
 
 	if !tx.Where(authInfo).First(authIdentity).RecordNotFound() {
 		if context.Auth.Config.UserModel != nil {

@@ -62,7 +62,8 @@ var DefaultRecoverPasswordHandler = func(context *auth.Context) error {
 	context.Request.ParseForm()
 
 	var (
-		authInfo    auth_identity.Basic
+		//authInfo    auth_identity.Basic
+		authInfo    auth_identity.AuthIdentity
 		email       = context.Request.Form.Get("email")
 		provider, _ = context.Provider.(*Provider)
 	)
