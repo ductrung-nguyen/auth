@@ -38,6 +38,20 @@ var DefaultAuthorizeHandler = func(context *auth.Context) (*claims.Claims, error
 	}
 
 	if err := provider.Encryptor.Compare(authInfo.EncryptedPassword, strings.TrimSpace(req.Form.Get("password"))); err == nil {
+		authInfo.SignLogs.SignInCount++
+		t := time.Now()
+		elm := auth_identity.SignLog{
+			UserAgent: req.UserAgent(),
+			At:        &t,
+			IP:        req.Header.Get("X-Forwarded-For"),
+		}
+		if elm.IP == "" {
+			elm.IP = req.RemoteAddr
+		}
+		authInfo.SignLogs.Logs = append(authInfo.SignLogs.Logs, elm)
+
+		// authIdentity := reflect.New(utils.ModelType(context.Auth.Config.AuthIdentityModel)).Interface()
+		tx.Save(authInfo)
 		return authInfo.ToClaims(), err
 	}
 
