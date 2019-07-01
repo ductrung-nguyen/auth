@@ -11,7 +11,7 @@ import (
 type AuthIdentity struct {
 	gorm.Model
 	Basic
-	SignLogs
+	SignLogs `gorm:"type:mediumtext"`
 }
 
 // Basic basic information about auth identity
