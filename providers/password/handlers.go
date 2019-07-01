@@ -3,6 +3,7 @@ package password
 import (
 	"reflect"
 	"strings"
+	"time"
 
 	"github.com/ductrung-nguyen/auth"
 	"github.com/ductrung-nguyen/auth/auth_identity"
@@ -48,12 +49,11 @@ var DefaultAuthorizeHandler = func(context *auth.Context) (*claims.Claims, error
 		if elm.IP == "" {
 			elm.IP = req.RemoteAddr
 		}
-		
 		if len(authInfo.SignLogs.Logs) > 1000 {
 			copy(authInfo.SignLogs.Logs, authInfo.SignLogs.Logs[1:])
 			authInfo.SignLogs.Logs = authInfo.SignLogs.Logs[:len(authInfo.SignLogs.Logs)-1]
 		}
-		
+
 		authInfo.SignLogs.Logs = append(authInfo.SignLogs.Logs, elm)
 
 		// authIdentity := reflect.New(utils.ModelType(context.Auth.Config.AuthIdentityModel)).Interface()
